@@ -22,13 +22,7 @@
 #endif
 
 #include <Adafruit_Sensor.h>
-#ifdef __AVR_ATtiny85__
-  #include "TinyWireM.h"
-  #define Wire TinyWireM
-#else
-  #include <Wire.h>
-#endif
-
+#include <Wire.h>
 
 /*=========================================================================
     I2C ADDRESS/BITS
@@ -42,6 +36,7 @@
     -----------------------------------------------------------------------*/
     typedef enum
     {                                                     // DEFAULT    TYPE
+      LSM303_REGISTER_ACCEL_WHO_AM_I_M          = 0x0F,
       LSM303_REGISTER_ACCEL_CTRL_REG1_A         = 0x20,   // 00000111   rw
       LSM303_REGISTER_ACCEL_CTRL_REG2_A         = 0x21,   // 00000000   rw
       LSM303_REGISTER_ACCEL_CTRL_REG3_A         = 0x22,   // 00000000   rw
@@ -76,21 +71,25 @@
     
     typedef enum
     {
-      LSM303_REGISTER_MAG_CRA_REG_M             = 0x00,
-      LSM303_REGISTER_MAG_CRB_REG_M             = 0x01,
-      LSM303_REGISTER_MAG_MR_REG_M              = 0x02,
-      LSM303_REGISTER_MAG_OUT_X_H_M             = 0x03,
-      LSM303_REGISTER_MAG_OUT_X_L_M             = 0x04,
-      LSM303_REGISTER_MAG_OUT_Z_H_M             = 0x05,
-      LSM303_REGISTER_MAG_OUT_Z_L_M             = 0x06,
-      LSM303_REGISTER_MAG_OUT_Y_H_M             = 0x07,
-      LSM303_REGISTER_MAG_OUT_Y_L_M             = 0x08,
-      LSM303_REGISTER_MAG_SR_REG_Mg             = 0x09,
-      LSM303_REGISTER_MAG_IRA_REG_M             = 0x0A,
-      LSM303_REGISTER_MAG_IRB_REG_M             = 0x0B,
-      LSM303_REGISTER_MAG_IRC_REG_M             = 0x0C,
-      LSM303_REGISTER_MAG_TEMP_OUT_H_M          = 0x31,
-      LSM303_REGISTER_MAG_TEMP_OUT_L_M          = 0x32
+      LSM303_REGISTER_MAG_WHO_AM_I_M          = 0x0F,
+      LSM303_REGISTER_MAG_CTRL_REG1_M         = 0x20,
+      LSM303_REGISTER_MAG_CTRL_REG2_M         = 0x21,
+      LSM303_REGISTER_MAG_CTRL_REG3_M         = 0x22,
+      LSM303_REGISTER_MAG_CTRL_REG4_M         = 0x23,
+      LSM303_REGISTER_MAG_CTRL_REG5_M         = 0x24,
+      LSM303_REGISTER_MAG_STATUS_REG_M        = 0x27,
+      LSM303_REGISTER_MAG_OUT_X_L_M           = 0x28,
+      LSM303_REGISTER_MAG_OUT_X_H_M           = 0x29,
+      LSM303_REGISTER_MAG_OUT_Z_L_M           = 0x2A,
+      LSM303_REGISTER_MAG_OUT_Z_H_M           = 0x2B,
+      LSM303_REGISTER_MAG_OUT_Y_L_M           = 0x2C,
+      LSM303_REGISTER_MAG_OUT_Y_H_M           = 0x2D,
+      LSM303_REGISTER_MAG_TEMP_L_M            = 0x2E,
+      LSM303_REGISTER_MAG_TEMP_H_M            = 0x2F,
+      LSM303_REGISTER_MAG_INT_CFG_M           = 0x30,
+      LSM303_REGISTER_MAG_INT_SRC_M           = 0x31,
+      LSM303_REGISTER_MAG_INT_THS_L_M         = 0x32,
+      LSM303_REGISTER_MAG_INT_THS_H_M         = 0x33
     } lsm303MagRegisters_t;
 /*=========================================================================*/
 
@@ -150,7 +149,8 @@
 /*=========================================================================
     CHIP ID
     -----------------------------------------------------------------------*/
-    #define LSM303_ID                     (0b11010100)
+    #define LSM303_ACCEL_ID               0x41
+    #define LSM303_MAG_ID                 0x3D
 /*=========================================================================*/
 
 /* Unified sensor driver for the accelerometer */

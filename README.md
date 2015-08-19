@@ -1,8 +1,7 @@
-#Adafruit LSM303DLHC Driver (Accelerometer + Magnetometer) #
+#Adafruit LSM303CTR Driver (Accelerometer + Magnetometer) #
 
-This driver is for the Adafruit LSM303 Breakout (http://www.adafruit.com/products/1120), and is based on Adafruit's Unified Sensor Library (Adafruit_Sensor).
 
-## About the LSM303 ##
+## About the LSM303CTR ##
 
 The LSM303 is a digital (I2C) accelerometer and digital compass (magnetometer).  The accelerometer allows you to measure acceleration or direction towards the center or the earth, and the magnetometer measure magnetic force, which is useful to detect magnetic north.
 
@@ -27,3 +26,4 @@ Light sensors will always report units in lux, gyroscopes will always report uni
 Adafruit invests time and resources providing this open source code.  Please support Adafruit and open-source hardware by purchasing products from Adafruit!
 
 Written by Kevin (KTOWN) Townsend for Adafruit Industries.
+Modified by Julien Aube (TTT) and Olivier Nicolas

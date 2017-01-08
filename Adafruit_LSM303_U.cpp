@@ -120,9 +120,13 @@ void Adafruit_LSM303_Accel_Unified::read()
   #endif    
 
   // Shift values to create properly formed integer (low byte first)
-  _accelData.x = (int16_t)(xlo | (xhi << 8)) >> 4;
-  _accelData.y = (int16_t)(ylo | (yhi << 8)) >> 4;
-  _accelData.z = (int16_t)(zlo | (zhi << 8)) >> 4;
+  // 12-bit values are left-aligned, no shift needed
+  //_accelData.x = (int16_t)(xlo | (xhi << 8)) >> 4;
+  //_accelData.y = (int16_t)(ylo | (yhi << 8)) >> 4;
+  //_accelData.z = (int16_t)(zlo | (zhi << 8)) >> 4;
+  _accelData.x = (int16_t)(xlo | (xhi << 8));
+  _accelData.y = (int16_t)(ylo | (yhi << 8));
+  _accelData.z = (int16_t)(zlo | (zhi << 8));
 }
 
 /***************************************************************************

@@ -169,6 +169,33 @@ bool Adafruit_LSM303_Accel_Unified::begin()
   return true;
 }
 
+
+/**************************************************************************/
+/*!
+    @brief  Set the Output Data Rate (ODR) of the accelerometer
+*/
+/**************************************************************************/
+bool Adafruit_LSM303_Accel_Unified::setOdr(lsm303AccelRate odr)
+{
+  uint8_t reg, value;
+
+  // Enable I2C
+  Wire.begin();
+
+  // Check odr value validity
+  if ( (odr < LSM303_ACCELRATE_POWERDOWN) || (odr > LSM303_ACCELRATE_NA) )
+    return false;
+
+  value = (odr << 4) & 0x70;
+  reg = read8(LSM303_ADDRESS_ACCEL, LSM303_REGISTER_ACCEL_CTRL_REG1_A);
+  reg = (reg & 0x8F) | value;
+  Serial.println(reg, HEX);
+  write8(LSM303_ADDRESS_ACCEL, LSM303_REGISTER_ACCEL_CTRL_REG1_A, reg);
+
+  return true;
+}
+
+
 /**************************************************************************/
 /*! 
     @brief  Gets the most recent sensor event

@@ -109,6 +109,22 @@
 /*=========================================================================*/
 
 /*=========================================================================
+    ACCELEROMETER UPDATE RATE SETTINGS
+    -----------------------------------------------------------------------*/
+    typedef enum
+    {
+      LSM303_ACCELRATE_POWERDOWN                = 0x0,  // Power-down mode
+      LSM303_ACCELRATE_10HZ                     = 0x1,  // 10Hz
+      LSM303_ACCELRATE_50HZ                     = 0x2,  // 50Hz
+      LSM303_ACCELRATE_100HZ                    = 0x3,  // 100Hz
+      LSM303_ACCELRATE_200HZ                    = 0x4,  // 200Hz
+      LSM303_ACCELRATE_400HZ                    = 0x5,  // 400Hz
+      LSM303_ACCELRATE_800HZ                    = 0x6,  // 800Hz
+      LSM303_ACCELRATE_NA                       = 0x7,  // NA
+    } lsm303AccelRate;	
+/*=========================================================================*/
+
+/*=========================================================================
     MAGNETOMETER UPDATE RATE SETTINGS
     -----------------------------------------------------------------------*/
     typedef enum
@@ -160,6 +176,7 @@ class Adafruit_LSM303_Accel_Unified : public Adafruit_Sensor
     Adafruit_LSM303_Accel_Unified(int32_t sensorID = -1);
   
     bool begin(void);
+    bool setOdr(lsm303AccelRate odr);
     bool getEvent(sensors_event_t*);
     void getSensor(sensor_t*);
 

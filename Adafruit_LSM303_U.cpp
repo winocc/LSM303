@@ -189,7 +189,7 @@ bool Adafruit_LSM303_Accel_Unified::setOdr(lsm303AccelRate odr)
   value = (odr << 4) & 0x70;
   reg = read8(LSM303_ADDRESS_ACCEL, LSM303_REGISTER_ACCEL_CTRL_REG1_A);
   reg = (reg & 0x8F) | value;
-  Serial.println(reg, HEX);
+  //Serial.println(reg, HEX);
   write8(LSM303_ADDRESS_ACCEL, LSM303_REGISTER_ACCEL_CTRL_REG1_A, reg);
 
   return true;
